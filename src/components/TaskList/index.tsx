@@ -24,12 +24,6 @@ const TaskList = ({ defaultUserId }: TaskListProps) => {
     }
   }, [params?.userId, defaultUserId]);
 
-  useEffect(() => {
-    if (userId) {
-      fetchUserTasks(userId);
-    }
-  }, [userId]);
-
   const fetchUserTasks = async (userId: number) => {
     try {
       const userTasks = await getUserTasks(userId);
@@ -41,6 +35,12 @@ const TaskList = ({ defaultUserId }: TaskListProps) => {
       setIsTaskLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserTasks(userId);
+    }
+  }, [userId]);
 
   const handleCompleteTask = async (task: ITask) => {
     const updatedTask = await updateUserTask({ ...task, completed: true });

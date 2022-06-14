@@ -1,0 +1,58 @@
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
+import User from './index';
+
+const user: IUser = {
+  id: 1,
+  name: 'Leanne Graham',
+  username: 'Bret',
+  email: 'Sincere@april.biz',
+  address: {
+    street: 'Kulas Light',
+    suite: 'Apt. 556',
+    city: 'Gwenborough',
+    zipcode: '92998-3874',
+    geo: {
+      lat: -37.3159,
+      lng: 81.1496,
+    },
+  },
+  phone: '1-770-736-8031 x56442',
+  website: 'hildegard.org',
+  company: {
+    name: 'Romaguera-Crona',
+    catchPhrase: 'Multi-layered client-server neural-net',
+    bs: 'harness real-time e-markets',
+  },
+};
+
+it('should render User Component', async () => {
+  const history = createMemoryHistory();
+  const route = '/';
+
+  history.push(route);
+
+  render(
+    <Router location={history.location} navigator={history}>
+      <User user={user} isDefaultUser={false} />
+    </Router>,
+  );
+
+  screen.getAllByText('Leanne Graham');
+});
+
+it('should render User Component with default user', async () => {
+  const history = createMemoryHistory();
+  const route = '/';
+
+  history.push(route);
+
+  render(
+    <Router location={history.location} navigator={history}>
+      <User user={user} isDefaultUser={true} />
+    </Router>,
+  );
+
+  screen.getAllByText('Leanne Graham');
+});

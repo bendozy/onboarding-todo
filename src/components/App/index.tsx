@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { getUsers } from '../../api/users';
+import NotFound from '../NotFound';
 import TaskList from '../TaskList';
 import UserList from '../UsersList';
 
@@ -8,10 +9,6 @@ const App = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const defaultUserId = users?.[0]?.id;
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
   const fetchUsers = async () => {
     try {
@@ -24,6 +21,10 @@ const App = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <div className="bg-gray-100 rounded-2xl h-screen flex flex-col w-full p-4">
@@ -50,6 +51,7 @@ const App = () => {
                 <Route path=":userId" element={<TaskList />} />
               </Route>
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>

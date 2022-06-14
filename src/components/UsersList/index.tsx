@@ -1,5 +1,5 @@
-import React, { ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { ChangeEvent, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Spinner from '../Spinner';
 import User from '../User';
@@ -13,8 +13,15 @@ type UserListProps = {
 const UserList = ({ users, isLoading, defaultUserId }: UserListProps) => {
   let navigate = useNavigate();
 
-  const handleChange = (event: ChangeEvent) =>
-    navigate(`/users/${(event.target as HTMLInputElement).value}`);
+  const { pathname } = useLocation();
+  const [selectedId, setSelectedId] = useState<string | undefined>(pathname);
+
+  const handleChange = (event: ChangeEvent) => {
+    const { value } = event.target as HTMLInputElement;
+
+    setSelectedId(value);
+    navigate(value);
+  };
 
   return (
     <div className="bg-white h-full rounded-2xl pb-12 col-span-1">
@@ -31,10 +38,10 @@ const UserList = ({ users, isLoading, defaultUserId }: UserListProps) => {
               id="tabs"
               name="tabs"
               className=" w-full text-base border border-gray-300 h-10 rounded-md"
-              defaultValue={defaultUserId}
+              value={selectedId}
               onChange={handleChange}>
               {users.map(({ id, name }) => (
-                <option key={id} value={id}>
+                <option key={id} value={`/users/${id}`}>
                   {name}
                 </option>
               ))}

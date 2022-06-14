@@ -2,7 +2,7 @@ import { mergeTasks } from '../utils/helper';
 
 export const getUserTasks = async (userId: number): Promise<ITask[]> => {
   const response = await fetch(
-    `http://jsonplaceholder.typicode.com/todos?userId=${userId}`,
+    `${process.env.REACT_APP_BASE_URL}/todos?userId=${userId}`,
   );
 
   const tasks: ITask[] = await response.json();
@@ -21,7 +21,7 @@ export const getUserTasks = async (userId: number): Promise<ITask[]> => {
 
 export const updateUserTask = async (userTask: ITask): Promise<ITask> => {
   const response = await fetch(
-    `http://jsonplaceholder.typicode.com/todos/${userTask.id}`,
+    `${process.env.REACT_APP_BASE_URL}/todos/${userTask.id}`,
     {
       method: 'PUT',
       body: JSON.stringify(userTask),

@@ -29,6 +29,6 @@ interface IUser {
 interface ITask {
   userId: number;
   id: number;
-  title: number;
+  title: string;
   completed: boolean;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Spinner = () => (
-  <div className="flex justify-center items-center">
+  <div className="flex justify-center items-center" data-testid="loading-icon">
     <svg
       role="status"
       className="w-20 h-20 mr-2 text-gray-200 animate-spin fill-blue-600"
